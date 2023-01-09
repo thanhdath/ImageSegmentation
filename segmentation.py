@@ -126,6 +126,7 @@ def get_largest_object_polygon(segment_img, im_width, im_height, IDX2CLASS):
 
     # find largest object
 
+    all_labels = []
     all_contours = []
     all_contours_areas = []
     for val in vals:
@@ -149,6 +150,7 @@ def get_largest_object_polygon(segment_img, im_width, im_height, IDX2CLASS):
 
         all_contours.extend(contours)
         all_contours_areas.extend(contours_areas)
+        all_labels.extend([val] * len(contours))
 
     largest_ind = np.argmax(all_contours_areas)
     contour = all_contours[largest_ind]
@@ -163,8 +165,9 @@ def get_largest_object_polygon(segment_img, im_width, im_height, IDX2CLASS):
             new_contour.append(contour[i])
     if len(new_contour) >= 3:
         contour = new_contour
+
     box = {
-        "label": IDX2CLASS[val],
+        "label": IDX2CLASS[all_labels[largest_ind]],
         "shape_type": "polygon",
         "points": [
             [
