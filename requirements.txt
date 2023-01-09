@@ -9,6 +9,8 @@ contourpy==1.0.6
 cycler==0.11.0
 dicttoxml==1.7.16
 dnspython==2.2.1
+Flask==2.2.2
+Flask-Cors==3.0.10
 flatbuffers==22.12.6
 fonttools==4.38.0
 gast==0.4.0
@@ -20,6 +22,8 @@ h5py==3.7.0
 idna==3.4
 importlib-metadata==5.2.0
 imutils==0.5.4
+itsdangerous==2.1.2
+Jinja2==3.1.2
 joblib==1.2.0
 keras==2.11.0
 kiwisolver==1.4.4

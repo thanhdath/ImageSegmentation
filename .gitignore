@@ -1,0 +1,6 @@
+deeplabv3_mnv2_ade20k_train_2018_12_03*
+logs/
+temp/
+output/
+.vscode/
+__pycache__/

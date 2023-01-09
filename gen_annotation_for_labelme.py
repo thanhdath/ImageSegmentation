@@ -138,11 +138,6 @@ CLASSES = {
 IDX2CLASS = {v: k for k, v in CLASSES.items()}
 files = sorted(glob.glob(OUTPUT_FOR_LABELING + "/*"))
 
-annotation_file = open("annotation.csv", "w+")
-annotation_file.write(
-    "filename,file_size,file_attributes,region_count,region_id,region_shape_attributes,region_attributes\n"
-)
-
 for ifile, file in enumerate(files):
     if ifile % 100 == 0:
         print("Processed ", ifile)
@@ -224,58 +219,3 @@ for ifile, file in enumerate(files):
         OUTPUT_FOR_LABELING_IMG + "/" + imagePath.replace(".jpeg", ".json"), "w+"
     ) as fp:
         fp.write(json.dumps(anno, indent=4, sort_keys=True))
-
-
-# annotation_file = open("annotation.csv", "w+")
-# annotation_file.write(
-#     "filename,file_size,file_attributes,region_count,region_id,region_shape_attributes,region_attributes\n"
-# )
-
-# for file in files:
-#     print(file)
-#     img = loadmat(file)["segment"]
-#     filter_seg_map = np.zeros_like(img, dtype=np.int32)
-#     for label in CONSIDER_CLASSES.keys():
-#         filter_seg_map[img == CLASS2IDX[label]] = CONSIDER_CLASSES[label]
-#     img = filter_seg_map
-#     vals = set(img.flatten())
-#     region_id = 0
-#     filename = file.split("/")[-1].replace(".mat", ".jpeg")
-#     filesize = os.path.getsize(OUTPUT_FOR_LABELING_IMG + "/" + filename)
-#     file_attributes = {}
-#     region_shape_attributess = []
-#     region_attributess = []
-#     for val in vals:
-#         if val != 0:
-#             mask = np.zeros_like(img, dtype=np.uint8)
-#             mask[img == val] = 1
-#             contours, hierarchy = cv2.findContours(
-#                 mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-#             )
-#             for contour in contours:
-#                 region_shape_attributes = {
-#                     "name": "polygon",
-#                     "all_points_x": contour[:, 0, 0].tolist(),
-#                     "all_points_y": contour[:, 0, 1].tolist(),
-#                 }
-#                 region_attributes = {"type": IDX2CLASS[val]}
-#                 region_shape_attributess.append(region_shape_attributes)
-#                 region_attributess.append(region_attributes)
-#     region_count = len(region_attributess)
-#     for i in range(region_count):
-#         region_id = i
-#         annotation_file.write(
-#             '{},{},"{}",{},{},"{}","{}"\n'.format(
-#                 filename,
-#                 filesize,
-#                 json.dumps(file_attributes),
-#                 region_count,
-#                 region_id,
-#                 json.dumps(region_shape_attributess[i])
-#                 .replace('"', '""')
-#                 .replace(" ", ""),
-#                 json.dumps(region_attributess[i]).replace('"', '""').replace(" ", ""),
-#             )
-#         )
-
-# annotation_file.close()
