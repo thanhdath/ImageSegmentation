@@ -65,7 +65,7 @@ if __name__ == "__main__":
     os.makedirs(TEMP_DIR, exist_ok=True)
 
     MODEL = DeepLabModel(
-        "deeplabv3_xception_ade20k_train/frozen_inference_graph.pb"
+       "deeplabv3_xception_ade20k_train/frozen_inference_graph.pb"
         # "deeplabv3_mnv2_ade20k_train_2018_12_03/frozen_inference_graph.pb"
     )
     print("model loaded successfully!")
@@ -78,8 +78,10 @@ if __name__ == "__main__":
         "skyscraper": 1,
         "car, auto, automobile, machine, motorcar": 2,
         "truck, motortruck": 2,
+        "airplane, aeroplane, plane": 3
     }  # class to our new label indices
 
-    IDX2CONSIDER_CLASS = {1: "building", 2: "car+truck"}
+    IDX2CONSIDER_CLASS = {1: "building", 2: "car+truck", 3: "plane"}
 
     app.run()
+ 
